@@ -19,11 +19,6 @@ export async function GET(req: Request) {
     for (const site of sites) {
       try {
         const links = await listAllLinks(site.baseUrl);
-        await prisma.$executeRaw`
-          UPDATE "LinkIndex"
-          SET "remoteId" = NULL
-          WHERE "siteId" = ${site.id} AND typeof("remoteId") = 'text'
-        `;
         await prisma.$transaction([
           prisma.linkIndex.deleteMany({ where: { siteId: site.id } }),
           ...(links.length

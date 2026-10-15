@@ -229,11 +229,6 @@ async function runRemove(
     try {
       const result = await deleteLinksByUrl(item.site.baseUrl, targetUrl);
 
-      await prisma.$executeRaw`
-        UPDATE "LinkIndex"
-        SET "remoteId" = NULL
-        WHERE "siteId" = ${item.site.id} AND typeof("remoteId") = 'text'
-      `;
       await prisma.linkIndex.deleteMany({
         where: { siteId: item.site.id, targetUrl },
       });
