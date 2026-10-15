@@ -1,0 +1,16 @@
+{
+  "name": "wp-textlink-management",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter @tlm/web dev",
+    "build": "pnpm --filter @tlm/web build",
+    "db:generate": "pnpm --filter @tlm/db generate",
+    "db:push": "pnpm --filter @tlm/db push",
+    "worker:dev": "pnpm --filter @tlm/worker dev",
+    "worker:start": "pnpm --filter @tlm/worker start",
+    "plugin:zip": "mkdir -p dist && cd plugins && zip -r ../dist/wp-tlm.zip wp-tlm -x '*.DS_Store'"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

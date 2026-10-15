@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  role         String   @default("user")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  sites Site[]
+  jobs  Job[]
+}
+
+model Site {
+  id            String    @id @default(cuid())
+  name          String
+  baseUrl       String    @unique
+  status        String    @default("unknown")
+  lastCheckedAt DateTime?
+  lastError     String?
+  linkCount     Int       @default(0)
+  ownerId       String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  owner     User?       @relation(fields: [ownerId], references: [id], onDelete: SetNull)
+  linkIndex LinkIndex[]
+  jobItems  JobItem[]
+
+  @@index([ownerId])
+}
+
+model LinkIndex {
+  id         String   @id @default(cuid())
+  siteId     String
+  targetUrl  String
+  anchorText String
+  remoteId   Int?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@unique([siteId, targetUrl, anchorText])
+  @@index([targetUrl])
+  @@index([siteId])
+}
+
+model Job {
+  id          String    @id @default(cuid())
+  type        String
+  status      String    @default("pending")
+  payload     String
+  summary     String?
+  userId      String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  user  User?     @relation(fields: [userId], references: [id], onDelete: SetNull)
+  items JobItem[]
+
+  @@index([userId])
+}
+
+model JobItem {
+  id          String    @id @default(cuid())
+  jobId       String
+  siteId      String
+  status      String    @default("pending")
+  result      String?
+  error       String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  job  Job  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  site Site @relation(fields: [siteId], references: [id], onDelete: Cascade)
+
+  @@index([jobId])
+  @@index([siteId])
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String
+  detail    String?
+  createdAt DateTime @default(now())
+}

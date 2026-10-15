@@ -1,0 +1,33 @@
+.wpcf-admin .wpcf-media {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.wpcf-admin .wpcf-preview {
+  width: 160px;
+  height: 48px;
+  border: 1px dashed #c3c4c7;
+  background: #f6f7f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.wpcf-admin .wpcf-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.wpcf-admin .wpcf-placeholder {
+  font-size: 12px;
+  color: #646970;
+}
+
+.wpcf-admin .wpcf-table td {
+  vertical-align: middle;
+}

@@ -1,0 +1,29 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules
+.pnpm-store
+
+# Build
+dist
+.next
+out
+*.tsbuildinfo
+
+# Prisma / SQLite
+packages/db/prisma/*.db
+packages/db/prisma/*.db-journal
+data/*.db
+data/*.db-journal
+
+# OS / IDE
+.DS_Store
+.idea
+.vscode
+*.log
+
+# Plugin zip output kept in dist/
+!dist/.gitkeep

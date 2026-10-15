@@ -1,0 +1,116 @@
+.wpcf-catfish {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background: transparent !important;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.wpcf-catfish.is-closed {
+  display: none !important;
+}
+
+.wpcf-catfish .wpcf-inner {
+  position: relative;
+  display: inline-block;
+  max-width: min(1200px, 100vw);
+  pointer-events: auto;
+  line-height: 0;
+  background: transparent;
+  overflow: visible;
+}
+
+/* Nút đóng: nằm trên góc trái banner một chút */
+.wpcf-catfish .wpcf-close {
+  position: absolute;
+  top: -22px;
+  left: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 4px 10px;
+  border: 0;
+  border-radius: 0 4px 0 0;
+  background: #c62828;
+  color: #fff;
+  font: 700 12px/1.2 system-ui, -apple-system, sans-serif;
+  cursor: pointer;
+  letter-spacing: 0.02em;
+  pointer-events: auto !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.wpcf-catfish .wpcf-close:hover {
+  background: #b71c1c;
+}
+
+.wpcf-catfish .wpcf-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  width: min(1200px, 100vw);
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+.wpcf-catfish--single .wpcf-inner {
+  max-width: min(720px, 100vw);
+}
+
+.wpcf-catfish--single .wpcf-grid {
+  grid-template-columns: 1fr;
+  width: auto;
+  max-width: min(720px, 100vw);
+}
+
+.wpcf-catfish .wpcf-item {
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+  background: transparent;
+}
+
+.wpcf-catfish .wpcf-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 100px;
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-width: 768px) {
+  .wpcf-catfish .wpcf-inner,
+  .wpcf-catfish--single .wpcf-inner {
+    max-width: 100vw;
+    width: 100%;
+  }
+
+  .wpcf-catfish .wpcf-grid,
+  .wpcf-catfish--single .wpcf-grid {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .wpcf-catfish .wpcf-item img {
+    max-height: 80px;
+  }
+
+  .wpcf-catfish .wpcf-close {
+    top: -20px;
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+}
